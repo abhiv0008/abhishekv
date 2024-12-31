@@ -44,7 +44,7 @@
 
         .new-year-text {
             margin-top: 20%;
-            font-size: 4rem;
+            font-size: 3rem;
             animation: blink 1s infinite;
         }
 
@@ -59,7 +59,13 @@
             bottom: 0;
             width: 100%;
             height: 150px;
-            background: linear-gradient(to top, #000, #444);
+            background: repeating-linear-gradient(
+                45deg,
+                #ffcccb,
+                #ffcccb 10px,
+                #ffb6c1 10px,
+                #ffb6c1 20px
+            );
         }
 
         .firework {
@@ -68,7 +74,7 @@
             height: 5px;
             background: yellow;
             border-radius: 50%;
-            animation: explode 1s ease-in-out forwards;
+            animation: explode 1s ease-in-out forwards infinite;
         }
 
         @keyframes explode {
@@ -100,7 +106,7 @@
 
         <!-- New Year Page -->
         <div id="new-year-page" class="new-year-page" style="display: none;">
-            <div class="new-year-text">Happy New Year!</div>
+            <div id="new-year-text" class="new-year-text">🎉✨ Happy New Year! 🎊✨ <br> Wishing you a wonderful year ahead, <span id="user-name"></span>!</div>
             <div class="city-lights"></div>
         </div>
     </div>
@@ -116,7 +122,9 @@
             if (name) {
                 document.getElementById('name-page').style.display = 'none';
                 document.getElementById('new-year-page').style.display = 'block';
+                document.getElementById('user-name').innerText = name;
                 createFireworks();
+                setInterval(createFireworks, 1000); // Keep fireworks continuously appearing
             } else {
                 alert('Please enter your name.');
             }
@@ -124,7 +132,7 @@
 
         function createFireworks() {
             const newYearPage = document.getElementById('new-year-page');
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 5; i++) {
                 const firework = document.createElement('div');
                 firework.classList.add('firework');
                 firework.style.left = Math.random() * 100 + '%';
